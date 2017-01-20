@@ -38,7 +38,7 @@ bool Sequence::insert(int pos, const ItemType& value) {
         return false;
     
     
-    for(int i = m_numItems; i >= pos; i--){
+    for(int i = m_numItems-1; i >= pos; i--){
         m_items[i+1] = m_items[i];
     }
     

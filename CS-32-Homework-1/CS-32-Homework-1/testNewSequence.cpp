@@ -20,7 +20,7 @@ int main(){
     Sequence a(1000);   // a can hold at most 1000 items
     Sequence b(5);      // b can hold at most 5 items
     Sequence c;         // c can hold at most DEFAULT_MAX_ITEMS items
-    ItemType v = 5;
+    ItemType v = 3;
     
     // No failures inserting 5 items into b
     for (int k = 0; k < 5; k++)
@@ -35,6 +35,7 @@ int main(){
     a.swap(b);
     
     cerr << "2" << endl;
+    
     
     assert(!a.insert(5, v));
     for (int k = 0; k < 1000; k++)
