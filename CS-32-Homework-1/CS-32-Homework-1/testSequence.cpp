@@ -99,6 +99,10 @@ int main(int argc, const char * argv[]) {
     //Bad
     assert(!a.insert(10, 2));
     assert(!a.insert(-1, 2));
+    
+    Sequence c(a);
+    a.dump();
+    c.dump();
  
     
     

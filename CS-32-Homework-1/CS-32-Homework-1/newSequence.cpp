@@ -22,6 +22,16 @@ Sequence::Sequence(int maxNumItems){
     m_maxItems = maxNumItems;
 }
 
+Sequence::Sequence(const Sequence& s){
+    m_numItems = s.m_numItems;
+    m_maxItems = s.m_maxItems;
+    m_items = new ItemType[s.m_maxItems];
+    
+    for(int i = 0; i < m_numItems; i++){
+        m_items[i] = s.m_items[i];
+    }
+}
+
 Sequence::~Sequence(){
     delete [] m_items;
 }

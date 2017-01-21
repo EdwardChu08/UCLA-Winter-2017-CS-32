@@ -10,6 +10,15 @@
 #include <iostream>
 
 
+Sequence::Sequence(const Sequence& s){
+
+    m_numItems = s.m_numItems;
+    
+    for(int i = 0; i < m_numItems; i++){
+        m_items[i] = s.m_items[i];
+    }
+}
+
 bool Sequence::insert(int pos, const ItemType& value) {
     
     //Outside valid location

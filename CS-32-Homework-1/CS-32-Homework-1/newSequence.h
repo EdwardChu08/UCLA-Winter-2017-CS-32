@@ -27,6 +27,8 @@ public:
     
     Sequence(int maxNumItems);
     
+    Sequence(const Sequence& s);
+    
     ~Sequence();
     
     // Return true if the sequence is empty, otherwise false.

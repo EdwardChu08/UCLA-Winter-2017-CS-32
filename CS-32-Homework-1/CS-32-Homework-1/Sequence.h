@@ -29,6 +29,9 @@ public:
         m_numItems = 0;
     };
     
+    //Copy constructor
+    Sequence(const Sequence& s);
+    
     // Return true if the sequence is empty, otherwise false.
     inline bool empty() const {
         return m_numItems == 0;
