@@ -29,6 +29,8 @@ public:
     
     Sequence(const Sequence& s);
     
+    Sequence &operator=(const Sequence& s);
+    
     ~Sequence();
     
     // Return true if the sequence is empty, otherwise false.
@@ -91,6 +93,8 @@ public:
     // Exchange the contents of this sequence with the other one.
     
     void dump() const;
+    
+    
     
 private:
     ItemType* m_items;

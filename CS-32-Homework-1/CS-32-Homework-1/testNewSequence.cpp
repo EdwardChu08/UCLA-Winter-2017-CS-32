@@ -45,6 +45,12 @@ int main(){
     a.dump();
     d.dump();
     
+    Sequence e;
+    e = a;
+    e.dump();
+    
+    e = e;
+    e.dump();
 
 }
 

@@ -32,6 +32,22 @@ Sequence::Sequence(const Sequence& s){
     }
 }
 
+Sequence &Sequence::operator=(const Sequence&  s){
+    
+    if(this != &s){ //Check for self-assignment
+        m_numItems = s.m_numItems;
+        m_maxItems = s.m_maxItems;
+        delete [] m_items;
+        m_items = new ItemType[s.m_maxItems];
+        
+        for(int i = 0; i < m_numItems; i++){
+            m_items[i] = s.m_items[i];
+        }
+    }
+    
+    return *this;
+}
+
 Sequence::~Sequence(){
     delete [] m_items;
 }
@@ -138,22 +154,6 @@ int Sequence::find(const ItemType& value) const {
 void Sequence::swap(Sequence& other) {
     
     //Swap items
-    /*
-    for(int i = 0; i < other.size() && i < this->size(); i++) {
-        ItemType temp = this->m_items[i];
-        this->m_items[i] = other.m_items[i];
-        other.m_items[i] = temp;
-    }
-    
-    if(this->size() > other.size()){
-        for(int i = other.size(); i < this->size(); i++)
-            other.m_items[i] = this->m_items[i];
-    } else {
-        for(int i = this->size(); i < other.size(); i++)
-            this->m_items[i] = other.m_items[i];
-    }
-     */
-    
     ItemType* a = m_items;
     m_items = other.m_items;
     other.m_items = a;
