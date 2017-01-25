@@ -32,5 +32,15 @@ int main() {
     
     a.dump();
     
+    assert(!a.erase(-1));
+    assert(!a.erase(8));
+    
+    assert(a.erase(0));
+    assert(a.erase(1));
+    assert(a.erase(5));
+
+    a.dump();
+    
+    
     return 0;
 }

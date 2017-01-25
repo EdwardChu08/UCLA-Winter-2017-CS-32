@@ -47,22 +47,20 @@ private:
             value = initValue;
             prevNode = prev;
             nextNode = next;
-            
-            if(prevNode == nullptr)
-                pos = 0;
-            else
-                pos = prevNode->pos + 1;
         };
     
         ItemType value;
         Node* prevNode;
         Node* nextNode;
-        int pos;
     };
 
+    //Variables
     Node* headNode;
     Node* tailNode;
     int listSize;
+    
+    //Helper functions
+    bool outOfBounds(int pos);
     
 };
 

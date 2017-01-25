@@ -10,6 +10,10 @@
 
 #include <iostream>
 
+//////////////////////////////////////////////////////////
+//CONSTRUCTORS AND DESTRUCTORS
+//////////////////////////////////////////////////////////
+
 Sequence::Sequence(){
     listSize = 0;
     headNode = tailNode = nullptr;
@@ -27,13 +31,18 @@ Sequence::~Sequence(){
     }
 }
 
+//////////////////////////////////////////////////////////
+//FUNCTIONS
+//////////////////////////////////////////////////////////
 bool Sequence::empty() const{
     return headNode == nullptr;
 }
 
+
 int Sequence::size() const{
     return listSize;
 }
+
 
 bool Sequence::insert(int pos, const ItemType& value){
     
@@ -56,10 +65,6 @@ bool Sequence::insert(int pos, const ItemType& value){
         headNode = newNode;
         listSize++;
         
-        for(Node* temp = newNode->nextNode; temp != nullptr; temp = temp->nextNode){
-            temp->pos++;
-        }
-        
         return true;
     }
     
@@ -74,18 +79,16 @@ bool Sequence::insert(int pos, const ItemType& value){
     
     //Middle cases
     Node* temp = headNode;
-    while(temp != nullptr && temp->pos != pos){
+    int count = 0;
+    while(temp != nullptr && count != pos){
         temp = temp->nextNode;
+        count++;
     }
     
     Node* newNode = new Node(value, temp->prevNode, temp);
     temp->prevNode->nextNode = newNode;
     temp->prevNode = newNode;
     listSize++;
-    
-    for(Node* temp = newNode->nextNode; temp != nullptr; temp = temp->nextNode){
-        temp->pos++;
-    }
     
     return true;
 }
@@ -105,14 +108,69 @@ int Sequence::insert(const ItemType& value){
 }
 
 
+bool Sequence::erase(int pos){
+    
+    if(pos >= listSize || pos < 0)
+        return false;
+    
+    //Remove Head
+    if(pos == 0){
+        Node* temp = headNode->nextNode;
+        delete headNode;
+        headNode = temp;
+        headNode->prevNode = nullptr;
+        listSize--;
+        return true;
+    }
+    
+    //Remove Tail
+    if(pos == listSize-1){
+        Node* temp = tailNode->prevNode;
+        delete tailNode;
+        tailNode = temp;
+        tailNode->nextNode = nullptr;
+        listSize--;
+        return true;
+    }
+    
+    //Remove Middle
+    int count = 0;
+    for(Node* temp = headNode; temp != nullptr; temp = temp->nextNode, count++){
+        if(pos == count){
+            temp->prevNode->nextNode = temp->nextNode;
+            temp->nextNode->prevNode = temp->prevNode;
+            delete temp;
+            listSize--;
+            return true;
+        }
+    }
+    
+    //Should never be reached
+    return false;
+    
+}
+
+
+//////////////////////////////////////////////////////////
+//HELPER FUNCTIONS
+//////////////////////////////////////////////////////////
+
+bool Sequence::outOfBounds(int pos){
+    return pos > listSize || pos < 0;
+}
+
 void Sequence::dump() const{
     std::cerr << "--- Starting printing ---" << std::endl;
     
+    std::cerr << "Size: " << listSize << std::endl;
+    
     Node* temp = headNode;
+    int count = 0;
     
     while(temp != nullptr){
-        std::cerr << "Node " << temp->pos << ": " << temp->value << std::endl;
+        std::cerr << "Node " << count << ": " << temp->value << std::endl;
         temp = temp->nextNode;
+        count++;
     }
     
     std::cerr << "--- Printing ended ---" << std::endl;
