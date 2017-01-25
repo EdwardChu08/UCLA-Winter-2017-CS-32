@@ -9,7 +9,7 @@
 #ifndef History_h
 #define History_h
 
-#include <stdio.h>
+//#include <stdio.h>
 #include "globals.h"
 
 class History

@@ -9,7 +9,7 @@
 #ifndef Player_h
 #define Player_h
 
-#include <stdio.h>
+//#include <stdio.h>
 #include <string>
 
 class Arena;

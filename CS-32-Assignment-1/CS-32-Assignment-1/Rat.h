@@ -9,7 +9,7 @@
 #ifndef Rat_h
 #define Rat_h
 
-#include <stdio.h>
+//#include <stdio.h>
 
 //#include "Arena.h"
 

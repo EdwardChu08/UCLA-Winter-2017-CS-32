@@ -9,7 +9,7 @@
 #ifndef arena_h
 #define arena_h
 
-#include <stdio.h>
+//#include <stdio.h>
 #include <string>
 
 #include "globals.h"

@@ -32,7 +32,7 @@ Sequence::Sequence(const Sequence& s){
     }
 }
 
-Sequence &Sequence::operator=(const Sequence&  s){
+Sequence& Sequence::operator=(const Sequence&  s){
     
     if(this != &s){ //Check for self-assignment
         m_numItems = s.m_numItems;
