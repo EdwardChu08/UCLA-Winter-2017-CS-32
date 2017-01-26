@@ -31,6 +31,33 @@ Sequence::~Sequence(){
     }
 }
 
+//Copy Constructor
+
+Sequence::Sequence(Sequence const &other){
+    listSize = 0;
+    Node* temp = other.headNode;
+    
+    for(int i = 0; temp != nullptr; i++, temp = temp->nextNode){
+        insert(i, temp->value);
+    }
+}
+
+//Overload Assignment Operator
+
+Sequence& Sequence::operator= (const Sequence &other){
+    if(&other != this){
+        deleteSequence();
+        
+        listSize = 0;
+        Node* temp = other.headNode;
+        
+        for(int i = 0; temp != nullptr; i++, temp = temp->nextNode){
+            insert(i, temp->value);
+        }
+    }
+    return *this;
+}
+
 //////////////////////////////////////////////////////////
 //FUNCTIONS
 //////////////////////////////////////////////////////////
@@ -95,12 +122,12 @@ bool Sequence::insert(int pos, const ItemType& value){
 
 
 int Sequence::insert(const ItemType& value){
-    int pos = 0;
+    int countPos = 0;
     
-    for(Node* temp = headNode; temp != nullptr; temp = temp->nextNode, pos++){
+    for(Node* temp = headNode; temp != nullptr; temp = temp->nextNode, countPos++){
         if(temp->value >= value){
-            insert(pos, value);
-            return pos;
+            insert(countPos, value);
+            return countPos;
         }
     }
     insert(listSize, value);
@@ -110,7 +137,7 @@ int Sequence::insert(const ItemType& value){
 
 bool Sequence::erase(int pos){
     
-    if(pos >= listSize || pos < 0)
+    if(outOfBounds(pos))
         return false;
     
     //Remove Head
@@ -134,9 +161,9 @@ bool Sequence::erase(int pos){
     }
     
     //Remove Middle
-    int count = 0;
-    for(Node* temp = headNode; temp != nullptr; temp = temp->nextNode, count++){
-        if(pos == count){
+    int countPos = 0;
+    for(Node* temp = headNode; temp != nullptr; temp = temp->nextNode, countPos++){
+        if(pos == countPos){
             temp->prevNode->nextNode = temp->nextNode;
             temp->nextNode->prevNode = temp->prevNode;
             delete temp;
@@ -150,14 +177,142 @@ bool Sequence::erase(int pos){
     
 }
 
+int Sequence::remove(const ItemType& value){
+    int removeCount = 0;
+    int countPos = 0;
+    
+    for(Node* temp = headNode; temp != nullptr; temp = temp->nextNode, countPos++){
+        if(temp->value == value){
+            erase(countPos);
+            removeCount++;
+            countPos--;
+        }
+    }
+    
+    return removeCount;
+}
+
+bool Sequence::get(int pos, ItemType& value) const {
+    
+    if(outOfBounds(pos))
+        return false;
+    
+    int countPos = 0;
+    
+    for(Node* temp = headNode; temp != nullptr; temp = temp->nextNode, countPos++){
+        if(countPos == pos){
+            value = temp->value;
+            return true;
+        }
+    }
+    
+    //This should never be reached
+    return false;
+}
+
+bool Sequence::set(int pos, const std::string& value){
+    
+    if(outOfBounds(pos))
+        return false;
+    
+    int countPos = 0;
+    
+    for(Node* temp = headNode; temp != nullptr; temp = temp->nextNode, countPos++){
+        if(countPos == pos){
+            temp->value = value;
+            return true;
+        }
+    }
+    
+    //This should never be reached
+    return false;
+}
+
+int Sequence::find(const ItemType& value) const{
+    int countPos = 0;
+    
+    for(Node* temp = headNode; temp != nullptr; temp = temp->nextNode, countPos++){
+        if(temp->value == value){
+            return countPos;
+        }
+    }
+    
+    //Not found
+    return -1;
+}
+
+void Sequence::swap(Sequence& other){
+    
+    if(&other == this)
+        return; //Swapping with self
+    
+    Node* temp = other.headNode;
+    other.headNode = headNode;
+    headNode = temp;
+    
+    temp = other.tailNode;
+    other.tailNode = tailNode;
+    tailNode = temp;
+    
+    int tempInt = other.listSize;
+    other.listSize = listSize;
+    listSize = tempInt;
+}
+
+//////////////////////////////////////////////////////////
+//NEW FUNCTIONS
+//////////////////////////////////////////////////////////
+
+int subsequence(const Sequence& seq1, const Sequence& seq2){
+    int posCount1 = 0;
+    
+    for(posCount1 = 0; posCount1 + seq2.size() <= seq1.size(); posCount1++){
+        
+        ItemType value1, value2;
+        seq1.get(posCount1, value1);
+        seq2.get(0, value2);
+        
+        if(value1 == value2){
+            int startPos = posCount1;
+            for(int posCount2 = 0; value1 == value2; posCount1++, posCount2++){
+                if(posCount2 == seq2.size())
+                    return startPos; //End of Seq2 reached, subseq found
+                
+                seq1.get(posCount1, value1);
+                seq2.get(posCount2, value2);
+            }
+                
+        }
+    }
+    
+    return -1;
+}
+
 
 //////////////////////////////////////////////////////////
 //HELPER FUNCTIONS
 //////////////////////////////////////////////////////////
 
-bool Sequence::outOfBounds(int pos){
-    return pos > listSize || pos < 0;
+bool Sequence::outOfBounds(int pos) const{
+    return pos >= listSize || pos < 0;
 }
+
+
+void Sequence::deleteSequence(){
+    Node* temp = headNode;
+    
+    //Delete all the nodes!
+    while(temp != nullptr){
+        temp = temp->nextNode;
+        
+        if(temp != nullptr)
+            delete temp->prevNode;
+    }
+    
+    listSize = 0;
+    headNode = tailNode = nullptr;
+}
+
 
 void Sequence::dump() const{
     std::cerr << "--- Starting printing ---" << std::endl;
@@ -173,5 +328,6 @@ void Sequence::dump() const{
         count++;
     }
     
-    std::cerr << "--- Printing ended ---" << std::endl;
+    std::cerr << "--- Printing ended ---" << std::endl << std::endl;
 }
+

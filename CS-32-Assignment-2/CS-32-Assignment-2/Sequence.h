@@ -37,6 +37,7 @@ public:
     int find(const ItemType& value) const;
     void swap(Sequence& other);
     
+    
     void dump() const;
 
 private:
@@ -60,9 +61,12 @@ private:
     int listSize;
     
     //Helper functions
-    bool outOfBounds(int pos);
+    bool outOfBounds(int pos) const;
+    void deleteSequence();
     
 };
+
+int subsequence(const Sequence& seq1, const Sequence& seq2);
 
 
 #endif /* Sequence_h */
