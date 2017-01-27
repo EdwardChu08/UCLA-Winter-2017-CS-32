@@ -36,8 +36,8 @@ Sequence::~Sequence(){
 Sequence::Sequence(Sequence const &other){
     listSize = 0;
     headNode = tailNode = nullptr;
-    Node* temp = other.headNode;
     
+    Node* temp = other.headNode;
     for(int i = 0; temp != nullptr; i++, temp = temp->nextNode){
         insert(i, temp->value);
     }
@@ -126,6 +126,8 @@ int Sequence::insert(const ItemType& value){
     int countPos = 0;
     
     for(Node* temp = headNode; temp != nullptr; temp = temp->nextNode, countPos++){
+        
+        //Appropriate pos found
         if(temp->value >= value){
             insert(countPos, value);
             return countPos;
