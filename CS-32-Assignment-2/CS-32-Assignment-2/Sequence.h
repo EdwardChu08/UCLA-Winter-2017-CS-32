@@ -12,6 +12,7 @@
 #include <string>
 
 typedef std::string ItemType;
+//typedef unsigned long ItemType;
 
 class Sequence
 {
@@ -67,6 +68,7 @@ private:
 };
 
 int subsequence(const Sequence& seq1, const Sequence& seq2);
+void interleave(const Sequence& seq1, const Sequence& seq2, Sequence& result);
 
 
 #endif /* Sequence_h */

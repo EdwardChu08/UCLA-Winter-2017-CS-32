@@ -35,6 +35,7 @@ Sequence::~Sequence(){
 
 Sequence::Sequence(Sequence const &other){
     listSize = 0;
+    headNode = tailNode = nullptr;
     Node* temp = other.headNode;
     
     for(int i = 0; temp != nullptr; i++, temp = temp->nextNode){
@@ -140,6 +141,15 @@ bool Sequence::erase(int pos){
     if(outOfBounds(pos))
         return false;
     
+    //Remove only node
+    if(size() == 1){
+        delete headNode;
+        headNode = nullptr;
+        tailNode = nullptr;
+        listSize--;
+        return true;
+    }
+    
     //Remove Head
     if(pos == 0){
         Node* temp = headNode->nextNode;
@@ -177,6 +187,7 @@ bool Sequence::erase(int pos){
     
 }
 
+
 int Sequence::remove(const ItemType& value){
     int removeCount = 0;
     int countPos = 0;
@@ -191,6 +202,7 @@ int Sequence::remove(const ItemType& value){
     
     return removeCount;
 }
+
 
 bool Sequence::get(int pos, ItemType& value) const {
     
@@ -210,7 +222,8 @@ bool Sequence::get(int pos, ItemType& value) const {
     return false;
 }
 
-bool Sequence::set(int pos, const std::string& value){
+
+bool Sequence::set(int pos, const ItemType& value){
     
     if(outOfBounds(pos))
         return false;
@@ -228,6 +241,7 @@ bool Sequence::set(int pos, const std::string& value){
     return false;
 }
 
+
 int Sequence::find(const ItemType& value) const{
     int countPos = 0;
     
@@ -241,10 +255,8 @@ int Sequence::find(const ItemType& value) const{
     return -1;
 }
 
+
 void Sequence::swap(Sequence& other){
-    
-    if(&other == this)
-        return; //Swapping with self
     
     Node* temp = other.headNode;
     other.headNode = headNode;
@@ -259,11 +271,16 @@ void Sequence::swap(Sequence& other){
     listSize = tempInt;
 }
 
+
 //////////////////////////////////////////////////////////
 //NEW FUNCTIONS
 //////////////////////////////////////////////////////////
 
 int subsequence(const Sequence& seq1, const Sequence& seq2){
+    
+    if(seq1.size() == 0 || seq2.size() == 0)
+        return -1;
+    
     int posCount1 = 0;
     
     for(posCount1 = 0; posCount1 + seq2.size() <= seq1.size(); posCount1++){
@@ -287,6 +304,33 @@ int subsequence(const Sequence& seq1, const Sequence& seq2){
     
     return -1;
 }
+
+void interleave(const Sequence& seq1, const Sequence& seq2, Sequence& result)
+{
+    Sequence save;
+    int saveCount = 0;
+    int posCount1 = 0, posCount2 = 0;
+    
+    while(posCount1 != seq1.size() || posCount2 != seq2.size()){
+        ItemType temp;
+        
+        if(seq1.get(posCount1, temp)){
+            save.insert(saveCount, temp);
+            posCount1++;
+            saveCount++;
+        }
+        
+        if(seq2.get(posCount2, temp)){
+            save.insert(saveCount, temp);
+            posCount2++;
+            saveCount++;
+        }
+    }
+    
+    result = save;
+    
+}
+
 
 
 //////////////////////////////////////////////////////////
