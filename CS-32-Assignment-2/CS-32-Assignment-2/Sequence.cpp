@@ -24,10 +24,9 @@ Sequence::~Sequence(){
     
     //Delete all the nodes!
     while(temp != nullptr){
+        Node* temp2 = temp;
         temp = temp->nextNode;
-        
-        if(temp != nullptr)
-            delete temp->prevNode;
+        delete temp2;
     }
 }
 
@@ -300,7 +299,8 @@ int subsequence(const Sequence& seq1, const Sequence& seq2){
                 seq1.get(posCount1, value1);
                 seq2.get(posCount2, value2);
             }
-                
+            
+            posCount1 = startPos;
         }
     }
     
@@ -349,10 +349,9 @@ void Sequence::deleteSequence(){
     
     //Delete all the nodes!
     while(temp != nullptr){
+        Node* temp2 = temp;
         temp = temp->nextNode;
-        
-        if(temp != nullptr)
-            delete temp->prevNode;
+        delete temp2;
     }
     
     listSize = 0;
