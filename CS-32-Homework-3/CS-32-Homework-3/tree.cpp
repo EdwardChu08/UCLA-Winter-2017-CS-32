@@ -5,10 +5,11 @@
 //  Created by Edward Chu on 12/2/2017.
 //  Copyright © 2017 Puffins. All rights reserved.
 //
+/*
 void separate(double a[], int n, double separator,
               int& firstNotGreater, int& firstLess);
 void exchange(double& x, double& y);
-
+*/
 
 // Return the number of ways that all n2 elements of a2 appear
 // in the n1 element array a1 in the same order (though not
@@ -115,7 +116,7 @@ void order(double a[], int n)
     
 }
 
-
+/*
 #include <iostream>
 #include <cassert>
 
@@ -158,7 +159,7 @@ int main(){
     }
     cout << endl;
     
-    double orderTest4[10] = {20, 40, 30, 50, 70, 90, 110, 0, -5, 20};
+    double orderTest4[10] = {20, 20, 30, 50, 70, 90, 110, 0, -5, 20};
     order(orderTest4, 10);
     for(int i = 0; i < 10; i++){
         cout << orderTest4[i] << " ";
@@ -166,3 +167,4 @@ int main(){
     cout << endl;
     
 }
+*/

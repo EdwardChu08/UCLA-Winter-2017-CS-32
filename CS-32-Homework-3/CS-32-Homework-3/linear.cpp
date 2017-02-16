@@ -6,11 +6,11 @@
 //  Copyright © 2017 Puffins. All rights reserved.
 //
 
-#include <iostream>
-#include <string>
+//#include <iostream>
+//#include <string>
 //#include <cassert>
 
-using namespace std;
+//using namespace std;
 
 //bool somePredicate(double x);
 

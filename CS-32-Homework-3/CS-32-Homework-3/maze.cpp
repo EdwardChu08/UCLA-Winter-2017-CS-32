@@ -6,10 +6,10 @@
 //  Copyright © 2017 Puffins. All rights reserved.
 //
 
-#include <iostream>
-#include <string>
+//#include <iostream>
+//#include <string>
 
-using namespace std;
+//using namespace std;
 
 // Return true if there is a path from (sr,sc) to (er,ec)
 // through the maze; return false otherwise
