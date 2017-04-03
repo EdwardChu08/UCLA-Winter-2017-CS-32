@@ -1,0 +1,5 @@
+Assumptions:
+- Poison objects only damage each insect once, and will only damage them again if they step off and step back onto it (just like pools of water)
+
+- Due to the implementation of the data structure, pools of water and poison objects may not stun or damage insects properly if adhering to the spec completely. This is due to the pool of water's or poison's doSomething() being called before the insect moves onto the object. Instead, pool of water and poison has an empty doSomething, and the insect will damage/stun itself in its doSomething() if it detects that it is moving onto a pool of water or poison object. 
+

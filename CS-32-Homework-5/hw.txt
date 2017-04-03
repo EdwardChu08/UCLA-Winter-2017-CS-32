@@ -1,0 +1,71 @@
+Edward Chu
+504772148
+Homework 5
+1a). 
+								50
+					20					60
+           10	         40					70
+			  15     30					  65	80
+		           25   35
+
+1b). 
+In-Order: 10, 15, 20, 25, 30, 35, 40, 50, 60, 65, 70, 80
+Pre-Order: 50, 20, 10, 15, 40, 30, 25, 35, 60, 70, 65, 80
+Post-Order: 15, 10, 25, 35, 30, 40, 20, 65, 80, 70, 60, 50
+
+1c).
+							50
+				15					60
+           10	     40					70
+			      25			 	65	   80
+		           35
+	
+2a). 
+struct Node {
+	int data;
+	Node* leftChild, rightChild, parent;
+};
+
+2b).
+void insert(int value){
+	if tree is empty
+		Create node with data = value, leftChild = rightChild = parent = nullptr
+		Set head node to the node created
+		Return
+	
+	Set current node to the head node
+	While true
+		If current node’s value == value (Node already exists)
+			Return
+		If value is less the current node’s value
+			If current node has no left child
+Create new node with data = value, leftChild = rightChild = nullptr, parent = current node
+Return
+			Else
+				Set current node to current node’s left child
+				Return
+		Else if value is greater than current node’s value
+If current node has no right child
+Create new node with data = value, leftChild = rightChild = nullptr, parent = current node
+Return
+			Else
+				Set current node to current node’s right child
+				Return
+};
+
+3a).
+						8
+					3		    6
+				  0   2		4
+
+3b). {8, 3, 6, 0, 2, 4}
+3c). {6, 3 ,4, 0, 2}
+
+4a). O(C+logS)
+4b). O(S+logC)
+4c). O(logC + logS)
+4d). O(logS)
+4e). O(1)
+4f). O(S + logC)
+4g). O(SlogS)
+4h). O(S)

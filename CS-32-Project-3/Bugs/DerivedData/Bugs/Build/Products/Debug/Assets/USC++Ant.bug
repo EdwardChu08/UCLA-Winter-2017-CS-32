@@ -1,0 +1,64 @@
+colony: USC++Ant // first line specifies the ant's name
+ 
+start:
+	if i_am_hungry then goto check_has_food
+	if i_am_standing_on_my_anthill then goto on_hill
+	if i_am_standing_on_food then goto on_food
+move:
+ 	if i_smell_pheromone_in_front_of_me then goto move_forward
+ 	if i_was_blocked_from_moving then goto get_random_direction
+ 	if i_am_carrying_food then goto emit_pheromone_then_move_random            		
+random_move:
+	faceRandomDirection
+ 	moveForward
+ 	emitPheromone
+ 	goto start 	// jump back to the "start:" line
+ 
+on_food:
+	if i_am_standing_on_my_anthill then goto on_hill
+ 	pickUpFood
+ 	goto move 	
+ 
+eat_food:
+ 	eatFood          // assumes our ant has already picked up food
+ 	goto start 	// jump back to the "start:" line
+ 
+on_hill:
+	emitPheromone
+ 	if i_am_carrying_food then goto drop_food
+ 	goto random_move  // jump back to the "start:" line
+
+check_has_food:
+	if i_am_carrying_food then goto eat_food
+	goto move
+
+check_pheromone_emit:
+	if i_am_carrying_food then goto emit_pheromone
+	goto start
+
+emit_pheromone:
+	emitPheromone
+	goto start
+
+move_forward:
+	moveForward
+	goto check_pheromone_emit
+
+drop_food:
+	dropFood
+	goto start
+
+emit_pheromone_then_move_random:
+	generateRandomNumber 10
+ 	if last_random_number_was_zero then goto start
+	emitPheromone
+	goto random_move
+
+get_random_direction:
+	faceRandomDirection
+	goto start
+
+turn_around:
+	rotateClockwise
+	rotateClockwise
+	goto start
