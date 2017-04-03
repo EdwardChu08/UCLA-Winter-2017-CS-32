@@ -1,0 +1,47 @@
+colony: IceBug 
+
+start:
+	if i_am_hungry then goto eat_food
+	moveForward
+	emitPheromone
+	if i_was_blocked_from_moving then goto get_random_direction
+	if i_am_standing_on_food then goto pickup_food
+	goto start
+
+eat_food:
+	eatFood
+	goto start
+
+get_random_direction:
+	faceRandomDirection
+	goto start
+
+turn_around_and_return_home:
+	faceRandomDirection
+	if i_smell_pheromone_in_front_of_me then goto loop
+	goto turn_around_and_return_home
+loop:
+	if i_am_hungry then goto eat_food_in_loop
+	moveForward
+	emitPheromone
+	if i_am_standing_on_my_anthill then goto drop_food
+	generateRandomNumber 8
+	if last_random_number_was_zero then goto get_random_direction
+	if i_smell_pheromone_in_front_of_me then goto loop
+keep_searching:
+	faceRandomDirection
+	if i_smell_pheromone_in_front_of_me then goto loop
+	goto keep_searching
+
+drop_food:
+	emitPheromone
+	dropFood
+	goto start
+
+pickup_food:
+	pickUpFood
+ 	goto turn_around_and_return_home
+
+eat_food_in_loop:
+	eatFood
+	goto loop
